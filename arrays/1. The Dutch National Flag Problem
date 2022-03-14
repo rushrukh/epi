@@ -1,4 +1,5 @@
 // TC O(n^2) SC O(1)
+
 vector<int> dnf(int idx, vector<int> A) {
 
 	//Bring smaller values than pivot to the front
@@ -20,6 +21,6 @@ vector<int> dnf(int idx, vector<int> A) {
 			}
 		} 
 	}
-	
+
 	return A;
 }
