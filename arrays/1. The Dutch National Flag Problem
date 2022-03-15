@@ -27,7 +27,7 @@ vector<int> dnf(int idx, vector<int> A) {
 }
 
 
-// TC O(n) SC O(1)
+// TC O(n) SC O(1): Two Pass
 
 vector<int> dnfB(int idx, vector<int> A) {
 
@@ -45,4 +45,20 @@ vector<int> dnfB(int idx, vector<int> A) {
 			swap(A[curr--], A[i]);
 	
 	return A;
+}
+
+
+// TC O(n) SC O(1): One pass
+
+vector<int> dnfC(int idx, vector<int> A) {
+
+  	int low = 0, mid = 0, high = A.size() - 1, pivot = A[idx];
+
+	while(mid <= high) {
+		if(A[mid] == pivot) mid++;
+		else if(A[mid] < pivot) swap(A[mid++], A[low++]);
+		else swap(A[mid], A[high--]);
+	}
+
+  return A;
 }
