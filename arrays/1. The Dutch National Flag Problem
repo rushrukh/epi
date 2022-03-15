@@ -1,11 +1,12 @@
 // TC O(n^2) SC O(1)
 
 vector<int> dnf(int idx, vector<int> A) {
-
+	int pivot = A[idx];
+	
 	//Bring smaller values than pivot to the front
 	for(int i = 0; i < A.size(); i++) {
 		for(int j = i + 1; j < A.size(); j++) {
-			if(A[j] < A[idx]) {
+	    	if(A[j] < pivot) {
 				swap(A[i], A[j]);
 				break;
 			}
@@ -13,14 +14,36 @@ vector<int> dnf(int idx, vector<int> A) {
 	}
 
 	//Bring larger values than pivot to the back
-	for(int i = A.size() - 1; i >= 0 && A[i] > A[idx]; i--) {
+	for(int i = A.size() - 1; i >= 0 && A[i] >= pivot; i--) {
 		for(int j = i - 1; j >= 0; j--) {
-			if(A[j] > A[idx]) {
+			if(A[j] > pivot) {
 				swap(A[i], A[j]);
 				break;
 			}
 		} 
 	}
+	
+	return A;
+}
 
+// TC O(n) SC O(1)
+
+vector<int> dnfB(int idx, vector<int> A) {
+
+	int pivot = A[idx], curr = 0;
+	
+	//Bring smaller values than pivot to the front
+	
+	for(int i = 0; i < A.size(); i++) 
+		if(A[i] < pivot)
+			swap(A[curr++], A[i]);
+
+	//Bring larger values than pivot to the back
+	
+	curr = A.size() - 1;
+	for(int i = A.size() - 1; i >= 0 && A[i] >= pivot; i--)
+		if(A[i] > pivot) 
+			swap(A[curr--], A[i]);
+	
 	return A;
 }
