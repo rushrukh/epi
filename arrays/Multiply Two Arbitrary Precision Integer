@@ -1,0 +1,26 @@
+// TC O(N*M) SC O(1)
+
+vector<int> multiply(vector<int> A, vector<int> B) {
+	bool isNegative = (A.front() < 0 && B.front() > 0) || (A.front() > 0 && B.front() < 0);
+	
+	reverse(A.begin(), A.end());
+	reverse(B.begin(), B.end());
+	
+	vector<int> result(A.size() + B.size(), 0);
+
+	for(int i = 0; i < B.size(); i++) {
+		for(int j = 0; j < A.size(); j++) {
+			result[i + j] += abs(B[i] * A[j]);
+			result[i + j + 1] += result[i + j] / 10;
+			result[i + j] = result[i + j] % 10;
+		}
+	}
+
+	for(int i = result.size() - 1; i > 0 && result[i] == 0; i--) result.pop_back();
+
+	reverse(result.begin(), result.end());
+
+	if(isNegative) result[0] *= -1;
+	
+	return result;
+}
