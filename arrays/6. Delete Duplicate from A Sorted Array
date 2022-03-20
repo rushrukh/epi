@@ -1,0 +1,14 @@
+// TC O(N), SC O(1)
+
+int deleteDuplicate(vector<int> A) {
+	if(A.size() < 2) return A.size();
+
+	int tmpIdx = 0;
+
+	for(int i = 0; i < A.size(); i++)
+		if(i == 0 || A[i] != A[i - 1])
+			A[tmpIdx++] = A[i];
+	
+	
+	return tmpIdx;
+}
