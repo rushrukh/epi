@@ -28,3 +28,50 @@ int calcProfit(vector<int> A) {
 	
 	return profit;
 }
+
+
+//TC O(N), SC O(1)
+
+int calcProfitB(vector<int> A) {
+	int firstBuy = 0, firstSell = 0, secondBuy = 0, secondSell = 0;
+
+	int minVal = INT_MAX, profit = INT_MIN;
+	
+	for(int i = 0; i < A.size(); i++) {
+		if(A[i] < minVal) {
+			minVal = min(minVal, A[i]);
+			firstBuy = i;
+		}
+
+		if(A[i] - minVal > profit) {
+			profit = max(profit, A[i] - minVal);
+			firstSell = i;
+		}
+	}
+
+	int profitSofar = 0;
+
+	if(firstBuy < firstSell) profitSofar += A[firstSell] - A[firstBuy];
+
+	for(int i = firstBuy; i <= firstSell; i++) A[i] = -1;
+
+	minVal = INT_MAX, profit = INT_MIN;
+	
+	for(int i = 0; i < A.size(); i++) {
+		if(A[i] > 0) {
+			if(A[i] < minVal) {
+				minVal = min(minVal, A[i]);
+				secondBuy = i;
+			}
+	
+			if(A[i] - minVal > profit) {
+				profit = max(profit, A[i] - minVal);
+				secondSell = i;
+			}
+		}
+	}
+
+	if(secondBuy < secondSell) profitSofar += A[secondSell] - A[secondBuy];
+	
+	return profitSofar;
+}
