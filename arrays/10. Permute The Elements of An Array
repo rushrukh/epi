@@ -1,0 +1,25 @@
+// TC O(N), SC O(1)
+
+void cyclicPermute(vector<int>& permutation, vector<int>& A, int startIdx) {
+	int i = startIdx;
+
+	int current_w = A[i];
+
+	do {
+		int next_i = permutation[i];
+		int next_w = A[next_i];
+
+		A[next_i] = current_w;
+		permutation[i] -= permutation.size();
+		i = next_i;
+		current_w = next_w;
+	} while (i != startIdx);
+}
+
+vector<int> applyPermutation(vector<int>& permutation, vector<int>& A) {
+	for(int i = 0; i < A.size(); i++) 
+		if(permutation[i] > 0) 
+			cyclicPermute(permutation, A, i);
+
+	return A;
+}
