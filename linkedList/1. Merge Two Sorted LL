@@ -1,0 +1,34 @@
+// TC O(N + M), SC O(N + M)
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l2) return l1;
+        if(!l1) return l2;
+        
+        ListNode* newHead = new ListNode();
+        ListNode* dummyHead = newHead;
+        
+        while(l1 && l2) {
+            ListNode* tmp = new ListNode();
+            
+            if(l1 -> val <= l2 -> val) {
+                tmp -> val = l1 -> val;
+                l1 = l1 -> next;
+            }
+            else {
+                tmp -> val = l2 -> val;
+                l2 = l2 -> next;
+            }
+            
+            dummyHead -> next = tmp;
+            dummyHead = tmp;
+        }
+        
+        if(l1) dummyHead -> next = l1;
+        if(l2) dummyHead -> next = l2;
+        
+        return newHead -> next;
+        
+    }
+};
