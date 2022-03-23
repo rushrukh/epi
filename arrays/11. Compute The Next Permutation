@@ -1,0 +1,19 @@
+// TC O(N), SC O(1)
+
+vector<int> nextPermute(vector<int> P) {
+	int k = P.size() - 2;
+
+	while(k >= 0 && P[k] > P[k + 1]) {
+		k--;
+	}
+
+	for(int i = P.size() - 1; i > k; i--) {
+		if(P[i] > P[k]) {
+			swap(P[i], P[k]);
+			break;
+		}
+	}
+
+	reverse(P.begin() + k + 1, P.end());
+	return P;
+}
